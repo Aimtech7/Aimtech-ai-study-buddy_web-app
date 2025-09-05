@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="dashboard-container">
+    <h2>Your Dashboard</h2>
+    
+    <div class="flashcard-form">
+        <h3>Create New Flashcards</h3>
+        <form method="POST">
+            <div class="form-group">
+                <label for="study_text">Study Material</label>
+                <textarea name="study_text" id="study_text" placeholder="Enter study material"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select name="category" id="category">
+                    <option value="General">General</option>
+                    <option value="Math">Math</option>
+                    <option value="Science">Science</option>
+                    <option value="History">History</option>
+                    <option value="Language">Language</option>
+                    <option value="Technology">Technology</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <button type="submit" class="btn">Generate Flashcards</button>
+        </form>
+    </div>
+    
+    <div class="flashcard-filters">
+        <h3>Filter Flashcards</h3>
+        <form method="GET" class="filter-form">
+            <select name="filter_category" onchange="this.form.submit()">
+                <option value="all" {% if not request.args.get('filter_category') or request.args.get('filter_category') == 'all' %}selected{% endif %}>All Categories</option>
+                <option value="General" {% if request.args.get('filter_category') == 'General' %}selected{% endif %}>General</option>
+                <option value="Math" {% if request.args.get('filter_category') == 'Math' %}selected{% endif %}>Math</option>
+                <option value="Science" {% if request.args.get('filter_category') == 'Science' %}selected{% endif %}>Science</option>
+                <option value="History" {% if request.args.get('filter_category') == 'History' %}selected{% endif %}>History</option>
+                <option value="Language" {% if request.args.get('filter_category') == 'Language' %}selected{% endif %}>Language</option>
+                <option value="Technology" {% if request.args.get('filter_category') == 'Technology' %}selected{% endif %}>Technology</option>
+                <option value="Other" {% if request.args.get('filter_category') == 'Other' %}selected{% endif %}>Other</option>
+            </select>
+            <select name="sort_by" onchange="this.form.submit()">
+                <option value="newest" {% if not request.args.get('sort_by') or request.args.get('sort_by') == 'newest' %}selected{% endif %}>Newest First</option>
+                <option value="oldest" {% if request.args.get('sort_by') == 'oldest' %}selected{% endif %}>Oldest First</option>
+                <option value="mastery_asc" {% if request.args.get('sort_by') == 'mastery_asc' %}selected{% endif %}>Mastery Level (Low to High)</option>
+                <option value="mastery_desc" {% if request.args.get('sort_by') == 'mastery_desc' %}selected{% endif %}>Mastery Level (High to Low)</option>
+            </select>
+        </form>
+    </div>
+    
+    <div class="flashcards-list">
+        <h3>Your Flashcards</h3>
+        {% if flashcards %}
+            <div class="cards-container">
+                {% for card in flashcards %}
+                    <div class="flashcard">
+                        <div class="flashcard-header">
+                            <span class="category-tag">{{ card.category }}</span>
+                            <span class="mastery-level">Mastery: {{ card.mastery_level }}/5</span>
+                        </div>
+                        <div class="flashcard-content">
+                            <div class="question"><strong>Q:</strong> {{ card.question }}</div>
+                            <div class="answer"><strong>A:</strong> {{ card.answer }}</div>
+                        </div>
+                        <div class="flashcard-actions">
+                            <form method="POST" action="{{ url_for('flashcards.update_mastery', card_id=card.id) }}">
+                                <button type="submit" name="mastery" value="decrease" class="btn-small">Too Hard</button>
+                                <button type="submit" name="mastery" value="increase" class="btn-small">Got It</button>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No flashcards yet. Create some above!</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="verification-container">
+    <h2>Email Verification</h2>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    
+    <div class="verification-info">
+        <p>We've sent a verification email to your registered email address. Please check your inbox and click the verification link to activate your account.</p>
+        <p>If you don't see the email, please check your spam folder.</p>
+    </div>
+    
+    <div class="verification-actions">
+        <form method="POST" action="{{ url_for('auth.resend_verification') }}">
+            <button type="submit" class="btn">Resend Verification Email</button>
+        </form>
+        <p class="verification-note">Already verified? <a href="{{ url_for('auth.login') }}">Login here</a></p>
+    </div>
+</div>
+{% endblock %}

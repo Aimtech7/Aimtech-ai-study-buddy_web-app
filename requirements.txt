@@ -1,0 +1,7 @@
+flask
+flask_login
+werkzeug
+gunicorn
+psycopg2-binary
+supabase-py
+python-dotenv
