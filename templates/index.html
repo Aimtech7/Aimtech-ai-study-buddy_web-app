@@ -1,5 +1,103 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Welcome to Aimtech – AI Study Buddy</h1>
-<p>AI-powered flashcards to make learning easier.</p>
+<div class="hero-section">
+    <div class="hero-content">
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='logo.svg') }}" alt="Aimtech Logo" class="animated-logo">
+        </div>
+        <h1 class="hero-title">Learn, Create, Conquer</h1>
+        <h2 class="hero-subtitle">Ignite Your Learning Potential!</h2>
+        <div class="hero-description">
+            <p>Every flashcard you study has the potential to unlock knowledge, skills, and opportunities that change your future.</p>
+            <p>Your journey with us is more than studying, it's about harnessing the power of AI to revolutionize how you learn.</p>
+        </div>
+        <div class="cta-buttons">
+            <a href="/register" class="btn btn-primary">Get Started</a>
+            <a href="/login" class="btn btn-secondary">Login</a>
+        </div>
+    </div>
+    <div class="hero-graphics">
+        <div class="floating-card card1">Q: What is spaced repetition?</div>
+        <div class="floating-card card2">A: A learning technique that incorporates increasing intervals of time between reviews of previously learned material.</div>
+        <div class="floating-card card3">Q: How does AI improve flashcards?</div>
+        <div class="floating-card card4">A: By analyzing your performance and adapting to focus on areas where you need more practice.</div>
+    </div>
+</div>
+
+<section class="about-section">
+    <h2>About Aimtech</h2>
+    <div class="about-grid">
+        <div class="about-card">
+            <h3>Our Story</h3>
+            <p>Our story began with a passion for education and technology. As we witnessed the transformative power of AI in various industries, we were struck by the potential it had to revolutionize the education sector.</p>
+        </div>
+        <div class="about-card">
+            <h3>Our Mission</h3>
+            <p>Our ultimate goal is to create a sustainable and rewarding learning experience for our users while promoting the adoption of AI technologies in education.</p>
+        </div>
+        <div class="about-card">
+            <h3>Our Belief</h3>
+            <p>We believe that technology should be used for good. We are promoting the adoption of innovative and sustainable solutions for the betterment of learning outcomes.</p>
+        </div>
+    </div>
+</section>
+
+<section class="courses-section">
+    <h2>Explore Study Decks</h2>
+    <div class="courses-grid">
+        <div class="course-card free">
+            <div class="course-badge">Free</div>
+            <h3>Computer Science Fundamentals</h3>
+            <p>Master the core concepts of computer science with our comprehensive flashcard deck covering algorithms, data structures, and programming principles.</p>
+        </div>
+        <div class="course-card free">
+            <div class="course-badge">Free</div>
+            <h3>Medical Terminology</h3>
+            <p>Learn essential medical terms and concepts with our adaptive flashcard system designed for healthcare students and professionals.</p>
+        </div>
+        <div class="course-card free">
+            <div class="course-badge">Free</div>
+            <h3>Language Learning Basics</h3>
+            <p>Build vocabulary and grammar skills in multiple languages with our AI-powered flashcards that adapt to your learning pace.</p>
+        </div>
+    </div>
+</section>
+
+<div class="features-section">
+    <h2>Why Choose Aimtech AI Study Buddy?</h2>
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-brain"></i></div>
+            <h3>Smart Learning</h3>
+            <p>Our AI adapts to your learning patterns and focuses on what you need most.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-clock"></i></div>
+            <h3>Save Time</h3>
+            <p>Learn more efficiently with optimized study sessions tailored to you.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+            <h3>Track Progress</h3>
+            <p>Visualize your improvement with detailed analytics and insights.</p>
+        </div>
+    </div>
+</div>
+
+<section class="stats-section">
+    <div class="stats-container">
+        <div class="stat-item">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Learners</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">50+</div>
+            <div class="stat-label">Study Decks</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">10+</div>
+            <div class="stat-label">Subjects</div>
+        </div>
+    </div>
+</section>
 {% endblock %}

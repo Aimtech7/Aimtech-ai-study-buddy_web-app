@@ -21,44 +21,40 @@ def init_supabase_tables():
         return
     
     try:
-        # Create users table if it doesn't exist
+        # Check if tables exist by attempting to query them
+        # For users table
         try:
             supabase.table('users').select('count').limit(1).execute()
             print("Users table exists")
-        except Exception:
-            print("Creating users table...")
-            supabase.sql("""
-                CREATE TABLE IF NOT EXISTS users (
-                    id SERIAL PRIMARY KEY,
-                    email VARCHAR(100) UNIQUE NOT NULL,
-                    password VARCHAR(200) NOT NULL,
-                    email_verified BOOLEAN DEFAULT FALSE,
-                    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-                );
-            """).execute()
+        except Exception as e:
+            print(f"Users table check error: {e}")
+            print("Note: Table creation must be done through Supabase dashboard or migrations.")
+            print("Please create the users table with the following structure:")
+            print("- id: serial primary key")
+            print("- email: varchar, unique, not null")
+            print("- password: varchar, not null")
+            print("- email_verified: boolean, default false")
+            print("- created_at: timestamp with time zone, default current_timestamp")
         
-        # Create flashcards table if it doesn't exist
+        # For flashcards table
         try:
             supabase.table('flashcards').select('count').limit(1).execute()
             print("Flashcards table exists")
-        except Exception:
-            print("Creating flashcards table...")
-            supabase.sql("""
-                CREATE TABLE IF NOT EXISTS flashcards (
-                    id SERIAL PRIMARY KEY,
-                    question TEXT NOT NULL,
-                    answer TEXT NOT NULL,
-                    user_id INTEGER NOT NULL,
-                    category VARCHAR(50) DEFAULT 'General',
-                    mastery_level INTEGER DEFAULT 0,
-                    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-                    FOREIGN KEY (user_id) REFERENCES users(id)
-                );
-            """).execute()
+        except Exception as e:
+            print(f"Flashcards table check error: {e}")
+            print("Note: Table creation must be done through Supabase dashboard or migrations.")
+            print("Please create the flashcards table with the following structure:")
+            print("- id: serial primary key")
+            print("- question: text, not null")
+            print("- answer: text, not null")
+            print("- user_id: integer, not null, foreign key to users(id)")
+            print("- category: varchar, default 'General'")
+            print("- mastery_level: integer, default 0")
+            print("- created_at: timestamp with time zone, default current_timestamp")
         
-        print("Supabase tables initialized successfully!")
+        print("Supabase tables check completed.")
     except Exception as e:
-        print(f"Error initializing Supabase tables: {e}")
+        print(f"Error checking Supabase tables: {e}")
 
 @login_manager.user_loader
 def load_user(user_id):
